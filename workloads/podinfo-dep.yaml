@@ -9,7 +9,7 @@ metadata:
   annotations:
     fluxcd.io/automated: "true"
     fluxcd.io/tag.init: regex:^3.10.*
-    fluxcd.io/tag.podinfod: semver:~2.1
+    fluxcd.io/tag.cityserviced: semver:~2.1
 spec:
   strategy:
     rollingUpdate:
@@ -32,19 +32,19 @@ spec:
         - sleep
         - "1"
       containers:
-      - name: podinfod
+      - name: cityserviced
         image: thomaspetit/city-service-thorntail:1.0.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
           name: http
           protocol: TCP
-        command:
-        - ./podinfo
-        - --port=9898
-        - --level=info
-        - --random-delay=false
-        - --random-error=false
+        #command:
+        #- ./cityservice
+        #- --port=8080
+        #- --level=info
+        #- --random-delay=false
+        #- --random-error=false
         env:
         - name: ZIPCODE_SERVICE_URL
           value: http://cityservice-dev.192.168.99.100.nip.io
