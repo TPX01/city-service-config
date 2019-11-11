@@ -2,10 +2,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: podinfo
-  namespace: demo
+  name: cityservice
+  namespace: dev
   labels:
-    app: podinfo
+    app: cityservice
   annotations:
     fluxcd.io/automated: "true"
     fluxcd.io/tag.init: regex:^3.10.*
@@ -17,13 +17,13 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: podinfo
+      app: cityservice
   template:
     metadata:
       annotations:
         prometheus.io/scrape: "true"
       labels:
-        app: podinfo
+        app: cityservice
     spec:
       initContainers:
       - name: init
@@ -33,10 +33,10 @@ spec:
         - "1"
       containers:
       - name: podinfod
-        image: stefanprodan/podinfo:2.1.0
+        image: thomaspetit/city-service-thorntail:1.0.0
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 9898
+        - containerPort: 8080
           name: http
           protocol: TCP
         command:
@@ -46,20 +46,20 @@ spec:
         - --random-delay=false
         - --random-error=false
         env:
-        - name: PODINFO_UI_MESSAGE
-          value: "Greetings human!"
+        - name: ZIPCODE_SERVICE_URL
+          value: http://cityservice-dev.192.168.99.100.nip.io
         livenessProbe:
           httpGet:
-            path: /healthz
-            port: 9898
+            path: /health/live
+            port: 8080
         readinessProbe:
           httpGet:
-            path: /readyz
-            port: 9898
+            path: /health/ready
+            port: 8080
         resources:
           limits:
             cpu: 1000m
-            memory: 128Mi
+            memory: 768Mi
           requests:
             cpu: 10m
             memory: 64Mi
