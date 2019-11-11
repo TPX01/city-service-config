@@ -33,7 +33,7 @@ spec:
         - "1"
       containers:
       - name: cityserviced
-        image: thomaspetit/city-service-thorntail:1.0.0
+        image: thomaspetit/city-service-thorntail:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
