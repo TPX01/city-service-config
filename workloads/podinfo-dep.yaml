@@ -39,8 +39,8 @@ spec:
         - containerPort: 8080
           name: http
           protocol: TCP
-        #command:
-        #- ./cityservice
+        command:
+        - ./cityservice
         #- --port=8080
         #- --level=info
         #- --random-delay=false
