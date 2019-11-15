@@ -39,12 +39,6 @@ spec:
         - containerPort: 8080
           name: http
           protocol: TCP
-        #command:
-        #- ./cityservice
-        #- --port=8080
-        #- --level=info
-        #- --random-delay=false
-        #- --random-error=false
         env:
         - name: ZIPCODE_SERVICE_URL
           value: http://cityservice-dev.192.168.99.100.nip.io
